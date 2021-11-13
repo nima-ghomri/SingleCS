@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace SingleCS
 {
@@ -6,7 +7,7 @@ namespace SingleCS
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            
         }
     }
 }
