@@ -7,6 +7,9 @@ using System.Text.RegularExpressions;
 
 namespace SingleCS.Models
 {
+    /// <summary>
+    /// C# Source file
+    /// </summary>
     public class CSFile : ICSFile
     {
         public List<string> Usings { get; }
