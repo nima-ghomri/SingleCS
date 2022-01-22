@@ -7,26 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Example\Complex\File1.cs.x" />
-    <None Remove="Example\Complex\File2.cs.x" />
-    <None Remove="Example\Complex\File3.cs.x" />
-    <None Remove="Example\Simple\File1.cs.x" />
-    <None Remove="Example\Simple\File2.cs.x" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Example\Complex\File1.cs.x" />
-    <Compile Include="Example\Complex\File2.cs.x" />
-    <Compile Include="Example\Complex\File3.cs.x" />
-    <Compile Include="Example\Simple\File1.cs.x" />
-    <Compile Include="Example\Simple\File2.cs.x" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.2.7" />
     <PackageReference Include="MSTest.TestFramework" Version="2.2.7" />
     <PackageReference Include="coverlet.collector" Version="3.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SingleCS\SingleCS.csproj" />
   </ItemGroup>
 
 </Project>
