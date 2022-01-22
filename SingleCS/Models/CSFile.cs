@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace SingleCS.Models
 {
-    public class CSFile
+    public class CSFile : ICSFile
     {
         public List<string> Usings { get; }
         public string Body { get; }
