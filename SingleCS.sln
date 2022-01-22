@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingleCS", "SingleCS\SingleCS.csproj", "{1D62EDED-AD76-468F-AA87-75352E7D6ADF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SingleCS", "SingleCS\SingleCS.csproj", "{1D62EDED-AD76-468F-AA87-75352E7D6ADF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestSingleCS", "TestSingleCS\TestSingleCS.csproj", "{2D6143F6-5B21-49BE-9434-E983D69D5B2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{1D62EDED-AD76-468F-AA87-75352E7D6ADF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D62EDED-AD76-468F-AA87-75352E7D6ADF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D62EDED-AD76-468F-AA87-75352E7D6ADF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D6143F6-5B21-49BE-9434-E983D69D5B2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D6143F6-5B21-49BE-9434-E983D69D5B2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D6143F6-5B21-49BE-9434-E983D69D5B2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D6143F6-5B21-49BE-9434-E983D69D5B2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
