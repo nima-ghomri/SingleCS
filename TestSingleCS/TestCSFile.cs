@@ -23,6 +23,49 @@ namespace TestSingleCS
         }
 
         [TestMethod]
+        public void Body_FileWithoutNamespace_ReturnsBody()
+        {
+            var content = @"
+using System;
+using System.Linq;
+using 
+Simple.Models;
+
+    public class MyClass;
+    {
+//using this method to test regex
+        private void Method()
+		  {
+			 using(var stream = new StringReader())
+			 {
+			 }
+		  }
+    }
+";
+
+            var expected = @"
+
+    public class MyClass;
+    {
+//using this method to test regex
+        private void Method()
+		  {
+			 using(var stream = new StringReader())
+			 {
+			 }
+		  }
+    }
+";
+            using (var temp = new TempFile())
+            {
+                File.WriteAllText(temp.Path, content);
+                var file = new CSFile(temp.Path);
+
+                Assert.AreEqual(file.Body, expected);
+            }
+        }
+
+        [TestMethod]
         public void CSFile_ComplexFile_BothMatchOriginal()
         {
             var content = @"
