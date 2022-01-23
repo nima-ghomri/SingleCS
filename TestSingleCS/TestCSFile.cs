@@ -11,15 +11,14 @@ namespace TestSingleCS
     [TestClass]
     public class TestCSFile
     {
-        private void Usings_Test(string fileContent, string[] expectedUsings)
+        private void AssertHead(string content, string expected)
         {
-
             using (var temp = new TempFile())
             {
-                File.WriteAllText(temp.Path, fileContent);
+                File.WriteAllText(temp.Path, content);
                 var file = new CSFile(temp.Path);
 
-                CollectionAssert.AreEqual(expectedUsings, file.Usings);
+                Assert.AreEqual(expected.Trim('\n'), file.Head.Trim('\n'));
             }
         }
 
@@ -27,7 +26,7 @@ namespace TestSingleCS
         [TestMethod]
         public void Usings_CommentedUsing_ReturnsUsings()
         {
-            Usings_Test(@"
+            AssertHead(@"
 using System;
 //using Simple.Models;
 // using System.Linq;
@@ -39,10 +38,11 @@ namespace Simple
         
     }
 }
-", new[]
-{
-"using System;",
-});
+", @"
+using System;
+//using Simple.Models;
+// using System.Linq;"
+);
         }
 
 
@@ -50,7 +50,7 @@ namespace Simple
         public void Usings_CommentBetween_ReturnsUsings()
         {
 
-            Usings_Test(@"
+            AssertHead(@"
 using System;
 // This is a comment
 using Simple.Models;
@@ -63,19 +63,19 @@ namespace Simple
         
     }
 }
-", new[]
-{
-"using System;",
-"using Simple.Models;",
-"using System.Linq;",
-});
+", @"
+using System;
+// This is a comment
+using Simple.Models;
+using System.Linq;"
+);
         }
 
 
         [TestMethod]
         public void Usings_SimpleFile_ReturnsUsings()
         {
-            Usings_Test(@"
+            AssertHead(@"
 using System;
 using Simple.Models;
 using System.Linq;
@@ -88,12 +88,10 @@ namespace Simple
     }
 }
 ",
-new[]
-{
-"using System;",
-"using Simple.Models;",
-"using System.Linq;",
-});
+@"
+using System;
+using Simple.Models;
+using System.Linq;");
         }
 
 

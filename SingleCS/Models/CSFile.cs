@@ -12,7 +12,7 @@ namespace SingleCS.Models
     /// </summary>
     public class CSFile : ICSFile
     {
-        public string Usings { get; }
+        public string Head { get; }
         public string Body { get; }
 
 
@@ -20,8 +20,8 @@ namespace SingleCS.Models
         {
             var content = File.ReadAllText(path);
             var match = Regex.Match(content, @"((.|\n)*using [^(]*?;)((.|\n)*)$");
-            //Usings = Regex.Match(content, @"(.|\n)*^using [^(]*?;").Value;
-            //Body = Regex.Match(content, @"name[^$]*$").Value;
+            Head = match.Groups[1].Value;
+            Body = match.Groups[3].Value;
         }
     }
 }
