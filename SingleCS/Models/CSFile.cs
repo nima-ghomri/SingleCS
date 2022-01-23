@@ -12,15 +12,16 @@ namespace SingleCS.Models
     /// </summary>
     public class CSFile : ICSFile
     {
-        public List<string> Usings { get; }
+        public string Usings { get; }
         public string Body { get; }
 
 
         public CSFile(string path)
         {
             var content = File.ReadAllText(path);
-            Usings = Regex.Matches(content, @"using(.*);").Select(g => g.Value).ToList();
-            Body = Regex.Match(content, @"name[^$]*$").Value;
+            var match = Regex.Match(content, @"((.|\n)*using [^(]*?;)((.|\n)*)$");
+            //Usings = Regex.Match(content, @"(.|\n)*^using [^(]*?;").Value;
+            //Body = Regex.Match(content, @"name[^$]*$").Value;
         }
     }
 }

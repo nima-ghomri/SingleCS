@@ -8,6 +8,6 @@ namespace SingleCS.Models
     public interface ICSFile
     {
         string Body { get; }
-        List<string> Usings { get; }
+        string Usings { get; }
     }
 }
