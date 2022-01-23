@@ -22,9 +22,44 @@ namespace TestSingleCS
             }
         }
 
+        [TestMethod]
+        public void CSFile_ComplexFile_BothMatchOriginal()
+        {
+            var content = @"
+using System;
+//using System.Linq;
+using 
+Simple.Models;
+using System.Linq;
+using System.Linq;using System.Linq;using System.Linq;
+//using System.Linq;
+//  using System.Linq;
+
+namespace Simple
+{
+    public class MyClass;
+    {
+//using this method to test regex
+        private void Method()
+		  {
+			 using(var stream = new StringReader())
+			 {
+			 }
+		  }
+    }
+}
+";
+            using (var temp = new TempFile())
+            {
+                File.WriteAllText(temp.Path, content);
+                var file = new CSFile(temp.Path);
+
+                Assert.AreEqual($"{file.Head}{file.Body}", content);
+            }
+        }
 
         [TestMethod]
-        public void Usings_CommentedUsing_ReturnsUsings()
+        public void Head_CommentedUsing_ReturnsHead()
         {
             AssertHead(@"
 using System;
@@ -47,7 +82,7 @@ using System;
 
 
         [TestMethod]
-        public void Usings_CommentBetween_ReturnsUsings()
+        public void Head_CommentBetween_ReturnsHead()
         {
 
             AssertHead(@"
@@ -73,7 +108,7 @@ using System.Linq;"
 
 
         [TestMethod]
-        public void Usings_SimpleFile_ReturnsUsings()
+        public void Head_SimpleFile_ReturnsHead()
         {
             AssertHead(@"
 using System;
