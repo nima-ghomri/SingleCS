@@ -19,9 +19,15 @@ namespace SingleCS.Models
         public CSFile(string path)
         {
             var content = File.ReadAllText(path);
-            var match = Regex.Match(content, @"((.|\n)*using [^(]*?;)((.|\n)*)$");
+            var match = Regex.Match(content, @"^(.*using [^(]*?;)(.*)$", RegexOptions.Singleline);
             Head = match.Groups[1].Value;
-            Body = match.Groups[3].Value;
+            Body = match.Groups[2].Value;
+        }
+
+        public CSFile(string head, string body)
+        {
+            Head = head;
+            Body = body;
         }
     }
 }
