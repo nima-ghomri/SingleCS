@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 
 namespace SingleCS.Models
 {
     public interface ICSCombiner
     {
-        ICSFile Combine(ICSFile file1, ICSFile file2);
+        ICSFile Combine(CombineOptions options, params ICSFile[] files);
     }
 }

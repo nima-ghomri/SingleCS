@@ -6,9 +6,9 @@ namespace SingleCS.Models
 {
     public class CSCombiner : ICSCombiner
     {
-        public ICSFile Combine(ICSFile file1, ICSFile file2)
+        public ICSFile Combine(CombineOptions options, params ICSFile[] files)
         {
-            throw new NotImplementedException();
+            throw new Exception();
         }
     }
 }
