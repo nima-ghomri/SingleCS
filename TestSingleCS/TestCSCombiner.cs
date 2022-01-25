@@ -21,14 +21,11 @@ namespace TestSingleCS
             return result;
         }
 
-        [TestMethod]
-        public void Combine_TwoFiles_ReturnCombinedFile()
-        {
-            var file1 = GetTemp(@"
-using Name.Space10;
-using Name.Space11;
+        public ICSFile File1 => GetTemp(@"
+using Name.Space1;
+using Name.Space1;
 using 
-Name.Space12;
+Name.Space3;
 
     public class MyClass;
     {
@@ -42,11 +39,11 @@ Name.Space12;
     }
 ");
 
-            var file2 = GetTemp(@"
-//using Name.Space20;
-using Name.Space21;
-using Name.Space22;
-using Name.Space23;
+        public ICSFile File2 => GetTemp(@"
+//using Name.Space4;
+using Name.Space5;
+using Name.Space3;
+using Name.Space3;
 
 namespace Complex.File
 {
@@ -62,15 +59,16 @@ namespace Complex.File
     }
 }
 ");
-            string expected = @"
-using Name.Space10;
-using Name.Space11;
+
+        private string expected = @"
+using Name.Space1;
+using Name.Space1;
 using 
-Name.Space12;
-//using Name.Space20;
-using Name.Space21;
-using Name.Space22;
-using Name.Space23;
+Name.Space3;
+//using Name.Space4;
+using Name.Space5;
+using Name.Space3;
+using Name.Space3;
 
     public class MyClass;
     {
@@ -82,6 +80,7 @@ using Name.Space23;
 			 }
 		  }
     }
+
 
 namespace Complex.File
 {
@@ -98,8 +97,19 @@ namespace Complex.File
 }
 ";
 
+        [TestMethod]
+        public void Combine_TwoFiles_ReturnCombinedFile()
+        {
             var combiner = new CSCombiner();
-            var result = combiner.Combine(file1, file2);
+            var result = combiner.Combine(CombineOptions.None, File1, File2);
+            Assert.AreEqual($"{result.Head}{result.Body}", expected);
+        }
+
+        [TestMethod]
+        public void RemoveDuplicates_TwoFiles_ReturnCombinedFile()
+        {
+            var combiner = new CSCombiner();
+            var result = combiner.Combine(CombineOptions.RemoveDuplicates, File1, File2);
             Assert.AreEqual($"{result.Head}{result.Body}", expected);
         }
     }
