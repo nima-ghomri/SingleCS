@@ -6,7 +6,7 @@ namespace SingleCS.Models
     public enum CombineOptions
     {
         None = 0,
-        RemoveDuplicates = 1,
+        Refactor = 1,
         NameSpaceMerge = 2,
         PartialMerge = 4,
     }

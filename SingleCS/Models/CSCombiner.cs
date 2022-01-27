@@ -13,7 +13,7 @@ namespace SingleCS.Models
             var head = string.Join("",files.Select(f => f.Head));
             var body = string.Join("",files.Select(f => f.Body));
 
-            if (options.HasFlag(CombineOptions.RemoveDuplicates))
+            if (options.HasFlag(CombineOptions.Refactor))
                 head = RemoveDuplicates(head);
 
             return new CSFile(head, body);
