@@ -1,5 +1,6 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SingleCS
@@ -8,26 +9,39 @@ namespace SingleCS
     /// 
     /// </summary>
     /// SingleCS.exe <"files-path"> [-?|-h|--help] [-m|--main] [-r|--refactor] [-n|--n-merge] [-p|--p-merge]
-    internal class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static CommandLineApplication Application { get; set; }
+
+        private static CommandArgument files;
+        private static CommandOption mains;
+        private static CommandOption refactor;
+        private static CommandOption nmerge;
+        private static CommandOption pmerge;
+
+        public static void Main(string[] args)
         {
-            var app = new CommandLineApplication()
+            Application = new CommandLineApplication()
             {
                 Name = "SingleCS",
                 Description = "A command line tool to combine .cs files",
             };
 
-            var files = app.Argument("files", "Files path", true);
+            files = Application.Argument("files", "Files path", true);
 
-            app.HelpOption(inherited: true);
-            var mains = app.Option("-m|--main", "Add main files", CommandOptionType.MultipleValue);
-            var refactor = app.Option("-r|--refactor", "Refactor usings and empty lines", CommandOptionType.NoValue);
-            var nmerge = app.Option("-n|--n-merge", "Merge namespaces", CommandOptionType.NoValue);
-            var pmerge = app.Option("-p|--p-merge", "Merge partial classes", CommandOptionType.NoValue);
+            Application.HelpOption(inherited: true);
+            mains = Application.Option("-m|--main", "Add main files", CommandOptionType.MultipleValue);
+            refactor = Application.Option("-r|--refactor", "Refactor usings and empty lines", CommandOptionType.NoValue);
+            nmerge = Application.Option("-n|--n-merge", "Merge namespaces", CommandOptionType.NoValue);
+            pmerge = Application.Option("-p|--p-merge", "Merge partial classes", CommandOptionType.NoValue);
 
-            app.Execute(args);
+            Application.OnExecute(OnExecute);
+
+            Application.Execute(args);
         }
 
+        private static void OnExecute()
+        {
+        }
     }
 }

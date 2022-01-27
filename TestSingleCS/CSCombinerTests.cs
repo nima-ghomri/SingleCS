@@ -109,7 +109,7 @@ namespace Complex.File
         public void RemoveDuplicates_TwoFiles_ReturnCombinedFile()
         {
             var combiner = new CSCombiner();
-            var result = combiner.Combine(CombineOptions.RemoveDuplicates, File1, File2);
+            var result = combiner.Combine(CombineOptions.Refactor, File1, File2);
             Assert.AreEqual($"{result.Head}{result.Body}", expected);
         }
     }
