@@ -8,7 +8,7 @@ using System.Text;
 namespace TestSingleCS
 {
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClass]
-    public class TestCSCombiner
+    public class CSCombinerTests
     {
         private ICSFile GetTemp(string content)
         {
