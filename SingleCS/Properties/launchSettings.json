@@ -1,7 +1,9 @@
 {
   "profiles": {
     "SingleCS": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "\"Helpers\\*\" -e \"*\\Math*\" -m \"Mains\\*\"",
+      "workingDirectory": "D:\\Projects\\Repos\\Test\\CSharp\\Examples"
     }
   }
 }
