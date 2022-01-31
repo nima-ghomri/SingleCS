@@ -9,5 +9,6 @@ namespace SingleCS.Models
     {
         string Body { get; }
         string Head { get; }
+        string Path { get; }
     }
 }
