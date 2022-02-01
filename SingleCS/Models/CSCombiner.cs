@@ -10,18 +10,24 @@ namespace SingleCS.Models
     {
         public ICSFile Combine(CombineOptions options, params ICSFile[] files)
         {
-            var head = string.Join("",files.Select(f => f.Head));
-            var body = string.Join("",files.Select(f => f.Body));
+            var head = string.Join("", files.Select(f => f.Head));
+            var body = string.Join("", files.Select(f => f.Body));
 
             if (options.HasFlag(CombineOptions.Refactor))
-                head = RemoveDuplicates(head);
+                Refactor(ref head, ref body);
 
             return new CSFile(head, body);
         }
 
-        private string RemoveDuplicates(string head)
+        private void Refactor(ref string head, ref string body)
         {
-            throw new NotImplementedException();
+            // Remove head comments
+            head = Regex.Replace(head, @"\/\*(.|\n)*\*\/", string.Empty);
+            head = string.Join("", head.Split(Environment.NewLine).Where(x => !x.StartsWith(@"//")));
+
+            // Remove duplicates and format usings
+            var matches = Regex.Matches(head, @"using (\w*)+(\.\w*)*;");
+            head = string.Join(Environment.NewLine, matches.Select(x => x.Value).Distinct());
         }
     }
 }
