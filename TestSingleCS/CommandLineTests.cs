@@ -19,14 +19,20 @@ namespace TestSingleCS
 
         private void RunMain(string arguments)
         {
-            var args = arguments.Split(' ', ',');
-            Program.Main(args);
+            try
+            {
+                var args = arguments.Split(' ', ',');
+                Program.Main(args);
+            }
+            catch (InvalidOperationException ex)
+            {
+            }
         }
 
         [TestMethod]
         public void Commandline_TestCase1_CorrectOptions()
         {
-            RunMain(@"'c:\dir1\*' 'c:\dir2\*' -m  'c:\dir3\main.cs' -r -n -p");
+            RunMain(@"'c:\dir1\*' 'c:\dir2\*' -m 'c:\dir3\main.cs' -r -n -p");
 
             CollectionAssert.AreEqual(new[] { @"'c:\dir1\*'", @"'c:\dir2\*'" }, GetArgument("files").Values.ToArray());
             Assert.IsTrue(GetOption("m").HasValue());

@@ -42,8 +42,8 @@ namespace SingleCS
             directory = Application.Option("-d|--directory", "Specify working directory", CommandOptionType.SingleValue);
             directory.DefaultValue = Directory.GetCurrentDirectory();
 
-            template = Application.Option("-t|--template", "Output files template, ex. '{file-name} - Merged.cs'", CommandOptionType.SingleValue);
-            template.DefaultValue = "{file-name} - Merged.cs";
+            template = Application.Option("-o|--output", "Output files template, ex. '* - Merged.cs'", CommandOptionType.SingleValue);
+            template.DefaultValue = "* - Merged.cs";
 
             refactor = Application.Option("-r|--refactor", "Refactor usings and empty lines", CommandOptionType.NoValue);
             nmerge = Application.Option("-n|--n-merge", "Merge namespaces", CommandOptionType.NoValue);
@@ -75,7 +75,7 @@ namespace SingleCS
             var globber = new Globber(files.Values, exclude.Values, mains.Values, directory.Value());
             var sets = globber.GetFileSets(x => new CSFile(x));
 
-            var pathTemplate = template.Value().Replace("file-name", "0", StringComparison.InvariantCultureIgnoreCase);
+            var pathTemplate = template.Value().Replace("*", "{0}", StringComparison.InvariantCultureIgnoreCase);
 
             var combiner = new CSCombiner();
             foreach (var set in sets)

@@ -26,8 +26,9 @@ namespace SingleCS.Models
             head = string.Join("", head.Split(Environment.NewLine).Where(x => !x.StartsWith(@"//")));
 
             // Remove duplicates and format usings
-            var matches = Regex.Matches(head, @"using (\w*)+(\.\w*)*;");
-            head = string.Join(Environment.NewLine, matches.Select(x => x.Value).Distinct());
+            var matches = Regex.Matches(head, @"using[ |\n\r]+(\w*)([ |\n\r]*\.[ |\n\r]*(\w*))*[ |\n\r]*;");
+            var usings = matches.Select(g => $"using {string.Join(".", g.Groups[3].Captures.Prepend(g.Groups[1]))};");
+            head = string.Join(Environment.NewLine, usings.Distinct());
         }
     }
 }
