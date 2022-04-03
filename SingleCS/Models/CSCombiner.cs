@@ -30,5 +30,10 @@ namespace SingleCS.Models
             var usings = matches.Select(g => $"using {string.Join(".", g.Groups[3].Captures.Prepend(g.Groups[1]))};");
             head = string.Join(Environment.NewLine, usings.Distinct());
         }
+
+        private void NamespaceMerge(ref string body)
+        {
+
+        }
     }
 }

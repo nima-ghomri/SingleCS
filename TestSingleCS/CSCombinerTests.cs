@@ -110,7 +110,8 @@ namespace Complex.File
         {
             var combiner = new CSCombiner();
             var result = combiner.Combine(CombineOptions.Refactor, File1, File2);
-            Assert.AreEqual($"{result.Head}{result.Body}", expected);
+
+            Assert.AreEqual(result.Head, expected);
         }
     }
 }
