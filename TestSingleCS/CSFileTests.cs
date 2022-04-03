@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace TestSingleCS
 {
     [TestClass]
-    public class TestCSFile
+    public class CSFileTests
     {
         private void AssertHead(string content, string expected)
         {
