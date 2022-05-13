@@ -9,34 +9,26 @@ namespace SingleCS.Models
     public class Globber
     {
         private IEnumerable<string> mainsPath;
-        private List<string> filesPath;
+        private IEnumerable<string> filesPath;
 
 
         public Globber(IEnumerable<string> include, IEnumerable<string> exclude, IEnumerable<string> mains, string directory)
         {
-            var paths = include.GroupBy(p => Path.IsPathFullyQualified(p)).ToDictionary(p => p.Key);
-            var relatives = paths[false];
-            var absolutes = paths[true];
-
-            var matcher = new Matcher();
-            matcher.AddIncludePatterns(relatives);
-            matcher.AddExcludePatterns(exclude);
-            filesPath = new List<string>();
-            filesPath.AddRange(matcher.GetResultsInFullPath(directory));
-
-            foreach (var path in absolutes)
-            {
-                matcher = new Matcher();
-                var pathDirectory = Path.GetDirectoryName(path);
-                var pattern = Path.GetRelativePath(pathDirectory, path);
-                matcher.AddInclude(pattern);
-                filesPath.AddRange(matcher.GetResultsInFullPath(pathDirectory));
-            }
+            filesPath = include.GroupBy(path => Path.IsPathFullyQualified(path) ? path : null).SelectMany((paths) =>
+               {
+                   var absolute = paths.Key != null;
+                   var current = absolute ? Path.GetDirectoryName(paths.First()) : directory;
+                   var patterns = absolute ? new[] { Path.GetRelativePath(current, paths.First()) } : paths.ToArray();
+                   var matcher = new Matcher();
+                   matcher.AddIncludePatterns(patterns);
+                   matcher.AddExcludePatterns(exclude);
+                   return matcher.GetResultsInFullPath(current);
+               });
 
             if (filesPath.Count() < 1)
                 throw new InvalidOperationException("Not found any files.");
 
-            matcher = new Matcher();
+            var matcher = new Matcher();
             matcher.AddIncludePatterns(mains);
             mainsPath = matcher.GetResultsInFullPath(directory);
             if (mainsPath.Count() < 1)
