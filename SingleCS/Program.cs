@@ -77,12 +77,15 @@ namespace SingleCS
 
             var pathTemplate = template.Value().Replace("*", "{0}", StringComparison.InvariantCultureIgnoreCase);
 
+            Console.WriteLine("SingleCS: Combining...");
             var combiner = new CSCombiner();
             foreach (var set in sets)
             {
                 var file = combiner.Combine(options, set.ToArray());
                 var path = string.Format(pathTemplate, Path.GetFileNameWithoutExtension(set.First().Path));
                 File.WriteAllText(path, file.ToString());
+                Console.WriteLine($"{path}");
+                set.ToList().ForEach(x => Console.WriteLine($"\t\t {x.Path}"));
             }
         }
 

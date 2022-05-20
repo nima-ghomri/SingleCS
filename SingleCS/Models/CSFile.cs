@@ -21,7 +21,7 @@ namespace SingleCS.Models
         {
             Path = path;
             var content = File.ReadAllText(path);
-            var match = Regex.Match(content, @"^(.*using [^(]*?;)(.*)$", RegexOptions.Singleline);
+            var match = Regex.Match(content, @"^(.*using [^(]*?;)*(.*)$", RegexOptions.Singleline);
             Head = match.Groups[1].Value;
             Body = match.Groups[2].Value;
         }

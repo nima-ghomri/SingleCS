@@ -12,20 +12,31 @@ namespace SingleCS.Models
         private IEnumerable<string> filesPath;
 
 
-        public Globber(IEnumerable<string> include, IEnumerable<string> exclude, IEnumerable<string> mains, string directory = null)
+        public Globber(IEnumerable<string> include, IEnumerable<string> exclude, IEnumerable<string> mains, string directory)
         {
-            var matcher = new Matcher();
-            matcher.AddIncludePatterns(include);
-            matcher.AddExcludePatterns(exclude);
-            filesPath = matcher.GetResultsInFullPath(directory);
+            filesPath = FindAllRelativeAndAbsolute(include, exclude, directory);
+
             if (filesPath.Count() < 1)
                 throw new InvalidOperationException("Not found any files.");
 
-            matcher = new Matcher();
-            matcher.AddIncludePatterns(mains);
-            mainsPath = matcher.GetResultsInFullPath(directory);
+            mainsPath = FindAllRelativeAndAbsolute(mains, null, directory);
             if (mainsPath.Count() < 1)
                 mainsPath = new[] { filesPath.First() };
+        }
+
+        private IEnumerable<string> FindAllRelativeAndAbsolute(IEnumerable<string> include, IEnumerable<string> exclude = null, string directory = null)
+        {
+            return include.GroupBy(path => Path.IsPathFullyQualified(path) ? path : null).SelectMany((paths) =>
+             {
+                 var absolute = paths.Key != null;
+                 var current = absolute ? Path.GetPathRoot(paths.First()) : directory ?? Directory.GetCurrentDirectory();
+                 var patterns = absolute ? new[] { Path.GetRelativePath(current, paths.First()) } : paths.ToArray();
+                 var matcher = new Matcher();
+                 matcher.AddIncludePatterns(patterns);
+                 if (exclude != null)
+                     matcher.AddExcludePatterns(exclude);
+                 return matcher.GetResultsInFullPath(current);
+             });
         }
 
         public IEnumerable<IEnumerable<ICSFile>> GetFileSets(Func<string, ICSFile> creator)
