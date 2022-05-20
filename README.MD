@@ -62,3 +62,14 @@ C:\>SingleCS.exe "MyProject\**\*.cs" --exclude "MyProject\obj\*"
 
 ### Main (-m|--main)
 By default the first file that is grabbed by SingleCS would be assumed to be the "main" file, the file that will be stored on top of other files in combined output. But you can change this behaviour by using main flag.
+
+```
+C:\>SingleCS.exe "MyProject\**\*.cs" --exclude "MyProject\obj\*"
+```
+
+
+
+
+## Visual Studio
+
+## Notes

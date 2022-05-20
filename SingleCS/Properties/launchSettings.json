@@ -2,7 +2,7 @@
   "profiles": {
     "SingleCS": {
       "commandName": "Project",
-      "commandLineArgs": "\"D:\\MyProject\\Program.cs\" \"C:\\Helpers\\Help.cs\"",
+      "commandLineArgs": "\"C:\\MyProject\\**\\*.cs\"",
       "workingDirectory": "D:\\Projects\\Repos\\Test\\CSharp\\Examples"
     }
   }

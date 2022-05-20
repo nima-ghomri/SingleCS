@@ -17,7 +17,7 @@ namespace SingleCS.Models
             filesPath = include.GroupBy(path => Path.IsPathFullyQualified(path) ? path : null).SelectMany((paths) =>
                {
                    var absolute = paths.Key != null;
-                   var current = absolute ? Path.GetDirectoryName(paths.First()) : directory;
+                   var current = absolute ? Path.GetPathRoot(paths.First()) : directory;
                    var patterns = absolute ? new[] { Path.GetRelativePath(current, paths.First()) } : paths.ToArray();
                    var matcher = new Matcher();
                    matcher.AddIncludePatterns(patterns);
