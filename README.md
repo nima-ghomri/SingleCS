@@ -1,7 +1,7 @@
 # SingleCS
 This is a console application that combines .cs files into a single file.
 
-Generally speaking, it's not a good idea to write all of your application in a single file. But in certain situations, you are required to store all of your source code in single file, e.g. online contests like Google's [CodeJam](https://codingcompetitions.withgoogle.com/codejam/) ask to submit your answer as a single file.
+Generally, it's not a good idea to write all of your application in a single file. But in certain situations, you are required to store all of your source code in single file, e.g. online contests like Google's [CodeJam](https://codingcompetitions.withgoogle.com/codejam/) ask to submit your answer as a single file.
 
 Instead of writing your application in one file you could develop it as usual, separating each class or interface in their own files. Using SingleCS you can combine all .cs files together in build time.
 
