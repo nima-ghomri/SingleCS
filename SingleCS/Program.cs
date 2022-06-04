@@ -46,8 +46,8 @@ namespace SingleCS
             template.DefaultValue = "* - Merged.cs";
 
             refactor = Application.Option("-r|--refactor", "Refactor usings and empty lines", CommandOptionType.NoValue);
-            nmerge = Application.Option("-n|--n-merge", "Merge namespaces", CommandOptionType.NoValue);
-            pmerge = Application.Option("-p|--p-merge", "Merge partial classes", CommandOptionType.NoValue);
+            //nmerge = Application.Option("-n|--n-merge", "Merge namespaces", CommandOptionType.NoValue);
+            //pmerge = Application.Option("-p|--p-merge", "Merge partial classes", CommandOptionType.NoValue);
 
             Application.OnExecute(OnExecute);
 
